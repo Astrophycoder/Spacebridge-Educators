@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Spacebridge Educators</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Helvetica', Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+            color: #333;
+        }
+
+        header {
+            background-image: url('https://via.placeholder.com/1920x300');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .about-section {
+            padding: 40px;
+            background: #fff;
+            border-radius: 10px;
+            margin: 40px 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #0056b3;
+        }
+
+        .about-section p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .team {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .member {
+            text-align: center;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .member img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .member h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .member p {
+            font-size: 1rem;
+            color: #777;
+        }
+
+        footer {
+            background-color: #282c34;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>About Us</h1>
+        </div>
+    </header>
+
+    <section class="container about-section">
+        <h2>Meet the Spacebridge Educators Team</h2>
+        <p>Our mission is to bridge the gap in exoplanet research and inspire the next generation of space enthusiasts!</p>
+        
+        <div class="team">
+            <div class="member">
+                <img src="web.png" alt="Malavika Pangavoor">
+                <h3>Malavika Pangavoor</h3>
+                <p>Technical Lead</p>
+            </div>
+            <div class="member">
+                <img src="content.png" alt="Vaibhav Badiger">
+                <h3>Vaibhav Badiger</h3>
+                <p>Content Lead</p>
+            </div>
+        </div>
+
+        <p>We offer interactive workshops, engaging classes, and a fun-filled approach to learning about the wonders of exoplanet exploration, designed for all age groups.</p>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Spacebridge Educators. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

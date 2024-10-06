@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Space Games for Kids</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        header {
+            background-color: #282c34;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 5px solid #00c6ff;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3em;
+            color: #00c6ff;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .game {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 1s ease-out;
+            border: 5px solid #00c6ff;
+        }
+
+        .game h2 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background-color: #e6f7ff;
+            border: 2px solid #00c6ff;
+            border-radius: 10px;
+        }
+
+        .btn {
+            background-color: #00c6ff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #008bbd;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #282c34;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .puzzle {
+            text-align: center;
+        }
+
+        h3 {
+            color: #4a90e2; /* Secondary color for game titles */
+        }
+
+        .score {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .answer-input {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .answer-input input {
+            width: 200px;
+            padding: 5px;
+            font-size: 16px;
+            border: 2px solid #00c6ff;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .ladder,
+        .snake {
+            color: #d9534f; /* Snake color */
+            font-size: 1.5em;
+        }
+
+        .ladder {
+            color: #5cb85c; /* Ladder color */
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Primary School Section</h1>
+        </div>
+    </header>
+
+    <section class="container">
+
+        <!-- Space Maze -->
+        <div class="game">
+            <h2>Space Maze</h2>
+            <p>Navigate your spaceship through exoplanets to reach the end!</p>
+            <canvas id="spaceMaze" width="600" height="400"></canvas>
+            <button class="btn" onclick="drawMaze()">Start Maze!</button>
+        </div>
+
+        <!-- Crossword -->
+        <div class="game">
+            <h2>Space Crossword</h2>
+            <p>Fill in the crossword and submit your answers!</p>
+            <div class="puzzle">
+                <img src="spacecrossword.jpg" alt="Space Crossword" style="max-width: 100%;">
+                <div class="answer-input">
+                    <input type="text" id="answer" placeholder="Enter your answer here">
+                    <button class="btn" onclick="submitAnswer()">Submit</button>
+                </div>
+            </div>
+            <div class="score" id="scoreDisplay">Score: 0</div>
+        </div>
+
+        <!-- Snakes and Ladders -->
+        <div class="game">
+            <h2>Snakes and Ladders</h2>
+            <p>Navigate through the galaxy and answer questions to decide your fate!</p>
+            <canvas id="board" width="600" height="600"></canvas>
+            <button class="btn" onclick="startGame()">Start Game!</button>
+            <div class="score" id="ladderSnakeScore">Position: 1</div>
+        </div>
+
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Spacebridge Educators. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // CROSSWORD GAME
+        const correctAnswers = ["MERCURY", "VENUS", "EARTH", "MARS", "JUPITER", "SATURN", "URANUS", "NEPTUNE"];
+        let score = 0;
+
+        function submitAnswer() {
+            const userAnswer = document.getElementById('answer').value.toUpperCase().trim();
+            document.getElementById('answer').value = ''; // Clear input field
+
+            if (correctAnswers.includes(userAnswer)) {
+                score++;
+                alert('Correct Answer!');
+            } else {
+                alert('Incorrect Answer! Try again.');
+            }
+            document.getElementById('scoreDisplay').innerText = 'Score: ' + score;
+        }
+
+        // SPACE MAZE GAME
+        const spaceMazeCanvas = document.getElementById('spaceMaze');
+        const spaceMazeCtx = spaceMazeCanvas.getContext('2d');
+        let playerX = 10;
+        let playerY = 10;
+
+        function drawMaze() {
+            spaceMazeCtx.clearRect(0, 0, spaceMazeCanvas.width, spaceMazeCanvas.height);
+            // Create a simple galaxy maze layout with exoplanets.
+            spaceMazeCtx.fillStyle = 'black';
+            spaceMazeCtx.fillRect(0, 0, 600, 400);  // Background
+
+            // Drawing maze walls (obstacles)
+            spaceMazeCtx.fillStyle = 'green';
+            spaceMazeCtx.fillRect(100, 0, 50, 300);  // Example obstacle
+            spaceMazeCtx.fillRect(200, 150, 50, 200); // Another obstacle
+            spaceMazeCtx.fillRect(300, 100, 50, 200); // Another obstacle
+
+            // Adding exoplanets
+            spaceMazeCtx.fillStyle = 'lightblue';
+            spaceMazeCtx.fillText("Kepler-186f", 50, 50); // Exoplanet name
+            spaceMazeCtx.fillRect(40, 60, 50, 50); // Planet representation
+
+            spaceMazeCtx.fillStyle = 'lightcoral';
+            spaceMazeCtx.fillText("Proxima Centauri b", 150, 100);
+            spaceMazeCtx.fillRect(140, 110, 50, 50);
+
+            spaceMazeCtx.fillStyle = 'lightgreen';
+            spaceMazeCtx.fillText("TRAPPIST-1e", 250, 150);
+            spaceMazeCtx.fillRect(240, 160, 50, 50);
+
+            spaceMazeCtx.fillStyle = 'lightyellow';
+            spaceMazeCtx.fillText("LHS 1140 b", 350, 200);
+            spaceMazeCtx.fillRect(340, 210, 50, 50);
+
+            spaceMazeCtx.fillStyle = 'lightpink';
+            spaceMazeCtx.fillText("WASP-121b", 450, 250);
+            spaceMazeCtx.fillRect(440, 260, 50, 50);
+
+            // Player (spaceship)
+            spaceMazeCtx.fillStyle = 'blue';
+            spaceMazeCtx.fillRect(playerX, playerY, 20, 20);
+
+            // Goal
+            spaceMazeCtx.fillStyle = 'red';
+            spaceMazeCtx.fillRect(550, 350, 30, 30);  // Goal
+
+            // Reset player position
+            playerX = 10;
+            playerY = 10;
+        }
+
+        function movePlayer(e) {
+            switch (e.key) {
+                case 'ArrowUp':
+                    if (playerY > 0) playerY -= 5;
+                    break;
+                case 'ArrowDown':
+                    if (playerY < spaceMazeCanvas.height - 20) playerY += 5;
+                    break;
+                case 'ArrowLeft':
+                    if (playerX > 0) playerX -= 5;
+                    break;
+                case 'ArrowRight':
+                    if (playerX < spaceMazeCanvas.width - 20) playerX += 5;
+                    break;
+            }
+            drawMaze();
+
+            // Check for goal
+            if (playerX > 550 && playerY > 350) {
+                alert('You reached the goal! Great job!');
+                drawMaze();
+            }
+        }
+
+        document.addEventListener('keydown', movePlayer);
+
+        // SNAKES AND LADDERS
+        const boardCanvas = document.getElementById('board');
+        const boardCtx = boardCanvas.getContext('2d');
+        const totalSquares = 100;
+        const boardSize = Math.sqrt(totalSquares);
+        let playerPosition = 1;
+
+        // Snake and ladder configurations
+        const snakes = { 17: 7, 54: 34, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 98: 79 };
+        const ladders = { 1: 38, 4: 14, 9: 31, 21: 42, 28: 84, 51: 67, 72: 91, 80: 100 };
+        
+        function drawBoard() {
+            boardCtx.clearRect(0, 0, boardCanvas.width, boardCanvas.height);
+            const squareSize = boardCanvas.width / boardSize;
+
+            // Draw squares
+            for (let i = 0; i < totalSquares; i++) {
+                const x = (i % boardSize) * squareSize;
+                const y = Math.floor(i / boardSize) * squareSize;
+                boardCtx.fillStyle = (i % 2 === 0) ? '#e6f7ff' : '#cceeff'; // Alternating colors
+                boardCtx.fillRect(x, y, squareSize, squareSize);
+                boardCtx.strokeRect(x, y, squareSize, squareSize);
+                boardCtx.fillStyle = 'black';
+                boardCtx.fillText(i + 1, x + squareSize / 2 - 10, y + squareSize / 2 + 10);
+            }
+
+            // Draw snakes
+            for (let [start, end] of Object.entries(snakes)) {
+                const startPos = start - 1;
+                const endPos = end - 1;
+                const startX = (startPos % boardSize) * squareSize + squareSize / 2;
+                const startY = Math.floor(startPos / boardSize) * squareSize + squareSize / 2;
+                const endX = (endPos % boardSize) * squareSize + squareSize / 2;
+                const endY = Math.floor(endPos / boardSize) * squareSize + squareSize / 2;
+
+                boardCtx.strokeStyle = 'red';
+                boardCtx.beginPath();
+                boardCtx.moveTo(startX, startY);
+                boardCtx.lineTo(endX, endY);
+                boardCtx.stroke();
+                boardCtx.fillText('S', startX + 5, startY - 10);
+            }
+
+            // Draw ladders
+            for (let [start, end] of Object.entries(ladders)) {
+                const startPos = start - 1;
+                const endPos = end - 1;
+                const startX = (startPos % boardSize) * squareSize + squareSize / 2;
+                const startY = Math.floor(startPos / boardSize) * squareSize + squareSize / 2;
+                const endX = (endPos % boardSize) * squareSize + squareSize / 2;
+                const endY = Math.floor(endPos / boardSize) * squareSize + squareSize / 2;
+
+                boardCtx.strokeStyle = 'green';
+                boardCtx.beginPath();
+                boardCtx.moveTo(startX, startY);
+                boardCtx.lineTo(endX, endY);
+                boardCtx.stroke();
+                boardCtx.fillText('L', startX + 5, startY - 10);
+            }
+
+            // Draw player
+            const playerX = (playerPosition - 1) % boardSize * squareSize + squareSize / 2;
+            const playerY = Math.floor((playerPosition - 1) / boardSize) * squareSize + squareSize / 2;
+            boardCtx.fillStyle = 'blue';
+            boardCtx.beginPath();
+            boardCtx.arc(playerX, playerY, squareSize / 3, 0, Math.PI * 2);
+            boardCtx.fill();
+
+            document.getElementById('ladderSnakeScore').innerText = 'Position: ' + playerPosition;
+        }
+
+        function getRandomQuestion() {
+            const questions = [
+                { question: "What planet is known as the Red Planet?", answer: "MARS" },
+                { question: "Which planet is closest to the Sun?", answer: "MERCURY" },
+                { question: "What is the largest planet in our Solar System?", answer: "JUPITER" },
+                { question: "Which planet is famous for its rings?", answer: "SATURN" },
+                { question: "Which planet is known as the Earth's twin?", answer: "VENUS" }
+            ];
+
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            return questions[randomIndex];
+        }
+
+        function startGame() {
+            playerPosition = 1;
+            drawBoard();
+            alert('Welcome to the Snakes and Ladders Galaxy Game! You will encounter questions that determine your fate!');
+            playTurn();
+        }
+
+        function playTurn() {
+            const randomRoll = Math.floor(Math.random() * 6) + 1;
+            alert('You rolled a ' + randomRoll + '. Moving forward...');
+            playerPosition += randomRoll;
+
+            if (playerPosition > totalSquares) {
+                playerPosition = totalSquares; // You can’t go beyond the last square
+            }
+
+            // Check for snakes or ladders
+            if (snakes[playerPosition]) {
+                alert('Oh no! You hit a snake! Going down to ' + snakes[playerPosition]);
+                playerPosition = snakes[playerPosition];
+            } else if (ladders[playerPosition]) {
+                alert('Great! You climbed a ladder! Going up to ' + ladders[playerPosition]);
+                playerPosition = ladders[playerPosition];
+            }
+
+            drawBoard();
+
+            // Check for game end
+            if (playerPosition >= totalSquares) {
+                alert('Congratulations! You reached the end of the galaxy!');
+                return;
+            }
+
+            // Ask a question based on the player's position
+            const question = getRandomQuestion();
+            const userAnswer = prompt(question.question).toUpperCase();
+
+            if (userAnswer === question.answer) {
+                alert('Correct! You can take another turn!');
+                playTurn();
+            } else {
+                alert('Incorrect answer. You missed your turn!');
+                setTimeout(playTurn, 2000); // Delay for next turn
+            }
+        }
+
+        // Initial drawing of the board
+        drawBoard();
+    </script>
+</body>
+</html>

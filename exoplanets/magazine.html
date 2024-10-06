@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazine - Spacebridge Educators</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        header {
+            background-color: #282c34;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .magazine-preview {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Magazine Section</h1>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="magazine-preview">
+            <h2>Latest Issue Preview</h2>
+            <p>FIRST EDITION COMING SOON </p>
+            <img src="Black White Bold Astronomy Event Poster (1).png" alt="Magazine Cover" style="width:100%; height:auto;">
+        </div>
+
+        <div class="submission">
+            <h2>Submit Your Article</h2>
+            <p>Have something to share? Submit your article below:</p>
+            <form action="submit-article.php" method="post">
+                <textarea name="article-link" placeholder="Paste your article link here" required></textarea>
+                <input type="submit" value="Submit Article">
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Spacebridge Educators. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

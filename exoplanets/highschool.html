@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High School - Spacebridge Educators</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        header {
+            background-color: #282c34;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .career-opportunities {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .quiz {
+            background: #e7f5ff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin: 20px 0;
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .options li {
+            margin: 10px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .result {
+            display: none;
+            background: #e7f5ff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #282c34;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>High School Section</h1>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="career-opportunities">
+            <h2>Career Opportunities in Space Science</h2>
+            <p>Explore the latest career options in the field of space science!</p>
+            <p>Join our upcoming quiz to learn more about careers!</p>
+            <div class="quiz-link">
+                <h3>Career Guidance Quiz</h3>
+                <p>Find your best-fit career in space science by answering a few questions!</p>
+                <div class="quiz">
+                    <div id="quiz-container">
+                        <div class="question" id="question1">
+                            <h4>1. What subject do you enjoy the most?</h4>
+                            <ul class="options">
+                                <li><input type="radio" name="q1" value="Physics"> Physics</li>
+                                <li><input type="radio" name="q1" value="Biology"> Biology</li>
+                                <li><input type="radio" name="q1" value="Mathematics"> Mathematics</li>
+                                <li><input type="radio" name="q1" value="Engineering"> Engineering</li>
+                            </ul>
+                        </div>
+
+                        <div class="question" id="question2" style="display:none;">
+                            <h4>2. How do you prefer to work?</h4>
+                            <ul class="options">
+                                <li><input type="radio" name="q2" value="Independently"> Independently</li>
+                                <li><input type="radio" name="q2" value="In a team"> In a team</li>
+                            </ul>
+                        </div>
+
+                        <div class="question" id="question3" style="display:none;">
+                            <h4>3. Which of the following tasks excites you?</h4>
+                            <ul class="options">
+                                <li><input type="radio" name="q3" value="Solving puzzles"> Solving puzzles</li>
+                                <li><input type="radio" name="q3" value="Conducting experiments"> Conducting experiments</li>
+                                <li><input type="radio" name="q3" value="Building things"> Building things</li>
+                                <li><input type="radio" name="q3" value="Working with data"> Working with data</li>
+                            </ul>
+                        </div>
+
+                        <button class="button" id="next-btn">Next</button>
+                        <div class="result" id="result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hackathons">
+            <h2>Upcoming Hackathons and Competitions</h2>
+            <p>Check out these international hackathons!</p>
+            <ul>
+                <li><strong>NASA Space Apps Challenge</strong> - Date: April 2024</li>
+                <li><strong>Hack for Space</strong> - Date: May 2024</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Spacebridge Educators. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const nextBtn = document.getElementById('next-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultDiv = document.getElementById('result');
+
+        let currentQuestion = 1;
+
+        nextBtn.addEventListener('click', () => {
+            const currentQuestionElement = document.getElementById(`question${currentQuestion}`);
+            const selectedOption = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+
+            if (!selectedOption) {
+                alert('Please select an option.');
+                return;
+            }
+
+            // Move to the next question or show results
+            if (currentQuestion < 3) {
+                currentQuestion++;
+                currentQuestionElement.style.display = 'none';
+                document.getElementById(`question${currentQuestion}`).style.display = 'block';
+            } else {
+                currentQuestionElement.style.display = 'none';
+                showResults();
+            }
+        });
+
+        function showResults() {
+            const q1Answer = document.querySelector(`input[name="q1"]:checked`).value;
+            const q2Answer = document.querySelector(`input[name="q2"]:checked`).value;
+            const q3Answer = document.querySelector(`input[name="q3"]:checked`).value;
+
+            let career = '';
+
+            if (q1Answer === 'Physics' && q3Answer === 'Solving puzzles') {
+                career = 'Astrophysicist';
+            } else if (q1Answer === 'Biology' && q3Answer === 'Conducting experiments') {
+                career = 'Astrobiologist';
+            } else if (q1Answer === 'Mathematics' && q2Answer === 'In a team') {
+                career = 'Data Scientist';
+            } else if (q1Answer === 'Engineering' && q3Answer === 'Building things') {
+                career = 'Aerospace Engineer';
+            } else {
+                career = 'Explore various fields in Space Science!';
+            }
+
+            resultDiv.innerHTML = `<h4>Your Suggested Career: ${career}</h4>`;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Chat - Spacebridge Educators</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        header {
+            background-color: #282c34;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .chat {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .message.user1 {
+            background-color: #dcf8c6;
+            align-self: flex-end;
+        }
+
+        .message.user2 {
+            background-color: #f1f1f1;
+            align-self: flex-start;
+        }
+
+        .message.user3 {
+            background-color: #ffc107;
+            align-self: flex-start;
+        }
+
+        .input-area {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .input-area button {
+            padding: 10px;
+            background-color: #282c34;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Group Chat</h1>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="chat" id="chat-window">
+            <div class="message user1">Hello! How is everyone doing?</div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="message-input" placeholder="Type your message..." autocomplete="off">
+            <select id="user-select">
+                <option value="user1">User 1</option>
+                <option value="user2">User 2</option>
+                <option value="user3">User 3</option>
+            </select>
+            <button id="send-message">Send</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Spacebridge Educators. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Get references to the input field, chat window, send button, and user selector
+        const messageInput = document.getElementById('message-input');
+        const chatWindow = document.getElementById('chat-window');
+        const sendButton = document.getElementById('send-message');
+        const userSelect = document.getElementById('user-select');
+
+        // Function to add a message to the chat window
+        function addMessage(messageText, userClass) {
+            // Create a new div for the message
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', userClass);
+            messageDiv.textContent = messageText;
+
+            // Append the message to the chat window
+            chatWindow.appendChild(messageDiv);
+
+            // Scroll to the bottom of the chat window
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        // Event listener for the send button
+        sendButton.addEventListener('click', () => {
+            const messageText = messageInput.value.trim();
+            const userClass = userSelect.value;
+
+            if (messageText !== '') {
+                // Add the message from the selected user to the chat window
+                addMessage(messageText, userClass);
+
+                // Clear the input field
+                messageInput.value = '';
+            }
+        });
+
+        // Event listener to send message by pressing Enter
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
