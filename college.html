@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Students - Spacebridge Educators</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        header {
+            background-color: #282c34;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .resources {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .request-paper {
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>College Students Section</h1>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="resources">
+            <h2>Access Research Papers</h2>
+            <p>Get access to valuable research papers through:</p>
+            <ul>
+                <li><a href="https://www.researchgate.net" target="_blank">ResearchGate</a></li>
+                <li><a href="https://scholar.google.com" target="_blank">Google Scholar</a></li>
+            </ul>
+            <div class="request-paper">
+                <p>Request specific papers:</p>
+                <form action="request-paper.php" method="post">
+                    <input type="text" name="paper-title" placeholder="Title of the paper" required>
+                    <input type="submit" value="Request Paper">
+                </form>
+            </div>
+        </div>
+
+        <div class="hackathons">
+            <h2>Upcoming Hackathons and Competitions</h2>
+            <p>Participate in these international competitions!</p>
+            <ul>
+                <li><strong>Global Hackathon</strong> - Date: June 2024</li>
+                <li><strong>International Space Challenge</strong> - Date: July 2024</li>
+            </ul>
+        </div>
+
+        <div class="internships">
+            <h2>Internship Opportunities</h2>
+            <p>Check out these upcoming internships:</p>
+            <ul>
+                <li><strong>NASA Internships</strong> - Application Deadline: April 2024</li>
+                <li><strong>SpaceX Internships</strong> - Application Deadline: March 2024</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Spacebridge Educators. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
